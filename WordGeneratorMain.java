@@ -1,4 +1,5 @@
 import java.io.Console;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,14 +11,15 @@ import src.FileManager;
 import src.LanguageModel;
 import src.TextParser;
 
-public class Main {
+public class WordGeneratorMain {
     public static void main(String[] args) throws IOException{
-        String fileName = args[0];
-        List<String> stopwords = Files.readAllLines(Paths.get("data/stopwords.txt"), StandardCharsets.UTF_8);
+        String dirPath = args[0];
+        String fileName = args[1];
+        List<String> stopwords = Files.readAllLines(Paths.get(dirPath + File.separator + "stopwords.txt"), StandardCharsets.UTF_8);
         Console console = System.console(); 
 
         // Load text file 
-        FileManager fileManager = new FileManager(fileName);
+        FileManager fileManager = new FileManager(dirPath + File.separator + fileName);
         List<String> cleanedText = fileManager.loadTextFile();
         fileManager.cleanStopWords(cleanedText, stopwords);
                 
